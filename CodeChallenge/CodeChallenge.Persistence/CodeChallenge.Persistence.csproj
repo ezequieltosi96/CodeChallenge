@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.24" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CodeChallenge.Application\CodeChallenge.Application.csproj" />
+    <ProjectReference Include="..\CodeChallenge.Cross\CodeChallenge.Cross.csproj" />
+    <ProjectReference Include="..\CodeChallenge.Domain\CodeChallenge.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,38 @@
+version: '3.1'
+
+services:
+      
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sqlserver
+    ports:
+      - 1433:1433
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: secure_password.2022
+
+  backend:
+    container_name: CodeChallenge.API
+    build:
+      context: ./CodeChallenge
+      dockerfile: Dockerfile
+    ports:
+      - "44355:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStringCodeChallenge=Server=sqlserver;Initial Catalog=permissionsDB;Persist Security Info=False;User ID=sa;Password=secure_password.2022;MultipleActiveResultSets=False;
+      - ElasticSearchUri=http://localhost:9200
+      - ElasticSearchDefaultIndex=permissions
+    volumes:
+      - ~/.aspnet/https:/https:ro
+      - /etc/localtime:/etc/localtime:ro
+      
+  elasticsearch:
+   container_name: elasticsearch
+   image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+   ports:
+    - 9200:9200
+   environment:
+    - discovery.type=single-node
+   
