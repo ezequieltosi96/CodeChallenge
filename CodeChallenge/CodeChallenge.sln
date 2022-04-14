@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeChallenge.Cross", "Code
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeChallenge.Tools", "CodeChallenge.Tools\CodeChallenge.Tools.csproj", "{A2174B5A-AFCA-4F43-9895-D3B3B1472FC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeChallenge.UnitTest", "CodeChallenge.UnitTest\CodeChallenge.UnitTest.csproj", "{27E5C8E9-E45D-4D67-BCE1-8E9594BA5310}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeChallenge.UnitTest", "CodeChallenge.UnitTest\CodeChallenge.UnitTest.csproj", "{27E5C8E9-E45D-4D67-BCE1-8E9594BA5310}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeChallenge.IntegrationTest", "CodeChallenge.IntegrationTest\CodeChallenge.IntegrationTest.csproj", "{14FBFE1D-6851-4B23-8C4D-ADEA66F7D19A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{27E5C8E9-E45D-4D67-BCE1-8E9594BA5310}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27E5C8E9-E45D-4D67-BCE1-8E9594BA5310}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27E5C8E9-E45D-4D67-BCE1-8E9594BA5310}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14FBFE1D-6851-4B23-8C4D-ADEA66F7D19A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14FBFE1D-6851-4B23-8C4D-ADEA66F7D19A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14FBFE1D-6851-4B23-8C4D-ADEA66F7D19A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14FBFE1D-6851-4B23-8C4D-ADEA66F7D19A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

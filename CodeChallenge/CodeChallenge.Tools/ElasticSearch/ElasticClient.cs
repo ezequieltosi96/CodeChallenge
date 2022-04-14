@@ -12,10 +12,11 @@ namespace CodeChallenge.Tools.ElasticSearch
 
         public ElasticClient()
         {
-            var uri = Environment.GetEnvironmentVariable(EnvironmentKeys.KEY_ELASTIC_SEARCH_URI);
-            _defaultIndex = Environment.GetEnvironmentVariable(EnvironmentKeys.KEY_ELASTIC_SEARCH_DEFAULT_INDEX);
+            //var uri = Environment.GetEnvironmentVariable(EnvironmentKeys.KEY_ELASTIC_SEARCH_URI);
+            //_defaultIndex = Environment.GetEnvironmentVariable(EnvironmentKeys.KEY_ELASTIC_SEARCH_DEFAULT_INDEX);
+            _defaultIndex = "permissions";
 
-            var settings = new ConnectionSettings(new Uri(uri)).DefaultIndex(_defaultIndex);
+            var settings = new ConnectionSettings(new Uri("http://es:9200")).DefaultIndex(_defaultIndex);
 
             _client = new Nest.ElasticClient(settings);
         }
