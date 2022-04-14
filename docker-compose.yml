@@ -27,8 +27,6 @@ services:
     volumes:
       - ~/.aspnet/https:/https:ro
       - /etc/localtime:/etc/localtime:ro
-    links:
-      es
       
   es:
    container_name: es
@@ -43,7 +41,7 @@ services:
     - xpack.watcher.enabled=false
     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     - discovery.type=single-node
-    networks:
+   networks:
     - elastic
     
 volumes:

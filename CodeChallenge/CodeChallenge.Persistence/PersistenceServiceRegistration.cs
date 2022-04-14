@@ -14,7 +14,8 @@ namespace CodeChallenge.Persistence
     {
         public static IServiceCollection RegisterPersistanceServices(this IServiceCollection services)
         {
-            services.AddDbContext<CodeChallengeDbContext>(opts => opts.UseSqlServer(Environment.GetEnvironmentVariable(EnvironmentKeys.KEY_CONNECTION_STRING)));
+            //services.AddDbContext<CodeChallengeDbContext>(opts => opts.UseSqlServer(Environment.GetEnvironmentVariable(EnvironmentKeys.KEY_CONNECTION_STRING)));
+            services.AddDbContext<CodeChallengeDbContext>(opts => opts.UseSqlServer("Server=sqlserver;Initial Catalog=permissionsDB;Persist Security Info=False;User ID=sa;Password=secure_password.2022;MultipleActiveResultSets=False;"));
 
             services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
             services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
