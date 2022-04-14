@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CodeChallenge.Application.Commands.Permission
 {
-    public class ModifyPermissionCommand : ICommand<string>
+    public class ModifyPermissionCommand : ICommand<int>
     {
         [Required]
         [Range(1, int.MaxValue)]

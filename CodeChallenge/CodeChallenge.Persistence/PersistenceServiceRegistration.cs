@@ -1,9 +1,9 @@
 ﻿using CodeChallenge.Application.Interfaces.Repositories;
 using CodeChallenge.Application.Interfaces.Repositories.Base;
-using CodeChallenge.Application.Interfaces.UnitOfWork;
 using CodeChallenge.Cross.Constants;
 using CodeChallenge.Persistence.Repositories;
 using CodeChallenge.Persistence.Repositories.Base;
+using CodeChallenge.Persistence.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -18,6 +18,7 @@ namespace CodeChallenge.Persistence
 
             services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
             services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+
             services.AddScoped<IPermissionRepository, PermissionRepository>();
             services.AddScoped<IPermissionTypeRepository, PermissionTypeRepository>();
 

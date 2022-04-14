@@ -15,5 +15,7 @@ namespace CodeChallenge.Application.Interfaces.Repositories.Base
         T Update(T entity);
 
         T Create(T entity);
+
+        void Commit();
     }
 }

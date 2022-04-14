@@ -1,30 +1,19 @@
-﻿using CodeChallenge.Application.Interfaces.Repositories;
-using CodeChallenge.Application.Interfaces.UnitOfWork;
-using System;
+﻿using System;
 
 namespace CodeChallenge.Persistence.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly CodeChallengeDbContext _dbContext;
-        private readonly IPermissionRepository _permissionRepository;
-        private readonly IPermissionTypeRepository _permissionTypeRepository;
+        public CodeChallengeDbContext Context { get; }
 
-        public UnitOfWork(CodeChallengeDbContext dbContext, IPermissionRepository permissionRepository, IPermissionTypeRepository permissionTypeRepository)
+        public UnitOfWork(CodeChallengeDbContext dbContext)
         {
-            _dbContext = dbContext;
-
-            _permissionRepository = permissionRepository;
-            _permissionTypeRepository = permissionTypeRepository;
+            Context = dbContext;
         }
-
-        public IPermissionRepository Permissions => _permissionRepository;
-
-        public IPermissionTypeRepository PermissionTypes => _permissionTypeRepository;
 
         public void Commit()
         {
-            _dbContext.SaveChanges();
+            Context.SaveChanges();
         }
 
         public void Dispose()
@@ -37,7 +26,7 @@ namespace CodeChallenge.Persistence.UnitOfWork
         {
             if (disposing)
             {
-                _dbContext.Dispose();
+                Context.Dispose();
             }
         }
     }

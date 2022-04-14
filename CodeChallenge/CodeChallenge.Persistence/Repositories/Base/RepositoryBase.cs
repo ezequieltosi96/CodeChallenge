@@ -1,5 +1,6 @@
 ﻿using CodeChallenge.Application.Interfaces.Repositories.Base;
 using CodeChallenge.Domain.Base;
+using CodeChallenge.Persistence.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System;
@@ -10,18 +11,17 @@ namespace CodeChallenge.Persistence.Repositories.Base
 {
     public class RepositoryBase<T> : IRepositoryBase<T> where T : EntityBase
     {
-        protected readonly CodeChallengeDbContext _dbContext;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public RepositoryBase(CodeChallengeDbContext dbContext)
+        public RepositoryBase(IUnitOfWork unitOfWork)
         {
-            this._dbContext = dbContext;
+            _unitOfWork = unitOfWork;
         }
-
 
         public IList<T> GetAll(Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, 
                                Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null)
         {
-            IQueryable<T> query = _dbContext.Set<T>();
+            IQueryable<T> query = _unitOfWork.Context.Set<T>();
 
             if(include != null)
             {
@@ -38,7 +38,7 @@ namespace CodeChallenge.Persistence.Repositories.Base
 
         public T GetById(int id, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
         {
-            IQueryable<T> query = _dbContext.Set<T>();
+            IQueryable<T> query = _unitOfWork.Context.Set<T>();
 
             if (include != null)
                 query = include(query);
@@ -48,16 +48,21 @@ namespace CodeChallenge.Persistence.Repositories.Base
 
         public T Update(T entity)
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
+            _unitOfWork.Context.Entry(entity).State = EntityState.Modified;
 
             return entity;
         }
 
         public T Create(T entity)
         {
-            _dbContext.Set<T>().Add(entity);
+            _unitOfWork.Context.Set<T>().Add(entity);
 
             return entity;
+        }
+
+        public void Commit()
+        {
+            _unitOfWork.Commit();
         }
     }
 }

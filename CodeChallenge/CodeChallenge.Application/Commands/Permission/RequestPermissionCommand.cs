@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CodeChallenge.Application.Commands.Permission
 {
-    public class RequestPermissionCommand : ICommand<string>
+    public class RequestPermissionCommand : ICommand<int>
     {
         [Required]
         [MaxLength(100)]

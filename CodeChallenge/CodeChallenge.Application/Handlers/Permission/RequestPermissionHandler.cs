@@ -1,43 +1,21 @@
 ﻿using CodeChallenge.Application.Commands.Permission;
-using CodeChallenge.Application.Exceptions;
-using CodeChallenge.Application.Interfaces.ElasticSearch;
-using CodeChallenge.Application.Interfaces.Mapping;
 using CodeChallenge.Application.Interfaces.Mediator.Command;
-using CodeChallenge.Application.Interfaces.UnitOfWork;
+using CodeChallenge.Application.Interfaces.Services;
 
 namespace CodeChallenge.Application.Handlers.Permission
 {
-    public class RequestPermissionHandler : ICommandHandler<RequestPermissionCommand, string>
+    public class RequestPermissionHandler : ICommandHandler<RequestPermissionCommand, int>
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapping _mapping;
-        private readonly IElasticClient _elasticClient;
+        private readonly IPermissionService _permissionService;
 
-        public RequestPermissionHandler(IUnitOfWork unitOfWork, IMapping mapping, IElasticClient elasticClient)
+        public RequestPermissionHandler(IPermissionService permissionService)
         {
-            _unitOfWork = unitOfWork;
-            _mapping = mapping;
-            _elasticClient = elasticClient;
+            _permissionService = permissionService;
         }
 
-        public string Handle(RequestPermissionCommand command)
+        public int Handle(RequestPermissionCommand command)
         {
-            Domain.Entities.PermissionType permissionType = _unitOfWork.PermissionTypes.GetById(command.IdPermissionType.Value);
-
-            if (permissionType == null)
-            {
-                throw new NotFoundException(nameof(Domain.Entities.PermissionType), command.IdPermissionType.Value);
-            }
-
-            Domain.Entities.Permission permission = _mapping.Map<Domain.Entities.Permission>(command);
-
-            _unitOfWork.Permissions.Create(permission);
-
-            _unitOfWork.Commit();
-
-            _elasticClient.IndexDocument<Domain.Entities.Permission>(permission);
-
-            return $"Permission \"{permissionType.Description}\" granted to {permission.EmployeeForename} {permission.EmployeeSurname} on {permission.PermissionDate.ToShortDateString()} UTC. Permission ID: {permission.Id}.";
+            return _permissionService.Create(command.IdPermissionType.Value, command.EmployeeForename, command.EmployeeSurname);
         }
     }
 }
